@@ -1,27 +1,30 @@
-import React from 'react';
-import './App.scss';
+import React, { useState } from 'react';
+import { Slider } from './components/Slider/Slider';
+import { CreatePostModal } from './components/CreatePostModal';
+import { NavBar } from './components/NavBar';
+import { Footer } from './components/Footer';
 
-interface Props {
-  onClick: () => void;
-}
+const App: React.FC = () => {
+  const [showModal, setShowModal] = useState(false);
 
-export const Provider: React.FC<Props> = React.memo(
-  ({ onClick, children }) => (
-    <button
-      type="button"
-      onClick={onClick}
-    >
-      {children}
-    </button>
-  ),
-);
+  const onAddPostButton = () => {
+    setShowModal(true);
+  };
 
-export const App: React.FC = () => {
+  const onCloseModalButton = () => {
+    setShowModal(false);
+  };
+
   return (
-    <div className="starter">
-      <Provider onClick={() => ({})}>
-        <TodoList />
-      </Provider>
-    </div>
+    <>
+      <NavBar onAddPostButton={onAddPostButton} />
+      {showModal && (
+        <CreatePostModal onCloseModalButton={onCloseModalButton} />
+      )}
+      <Slider />
+      <Footer />
+    </>
   );
 };
+
+export default App;
