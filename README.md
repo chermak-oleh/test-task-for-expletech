@@ -1,9 +1,14 @@
-# React TypeScript Starter Pack
+[DEMO LINK](https://chermak-oleh.github.io/test-task-for-expletech/)
 
-To use this template click `Use this template`
+Test task for Expletech by Oleh Chermak.
 
-### Available Scripts
+To run this project on your localhost:
+- Open terminal and run `npm install`.
+- After all dependencies installed, run `npm start`.
 
-`Deploy` - available to deploy your application to gh-pages
+  - Used Technolgies: HTML, CSS, Bulma, Typescript, React, Redux.
 
-`SCSS Preprocessor` - available to write your styles with modern style language
+
+
+
+
