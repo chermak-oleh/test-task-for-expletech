@@ -4,4 +4,16 @@
   align-items: center;
 }
 
+.post-content {
+  max-width: 750px; 
+  max-height: 600px; 
+  overflow: auto;
+}
+
+.footer-image {
+  background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Flag_of_Ukraine.svg/1599px-Flag_of_Ukraine.svg.png?20100406171642);
+  background-size: cover;
+  background-position: center,
+}
+
 @import '~bulma';

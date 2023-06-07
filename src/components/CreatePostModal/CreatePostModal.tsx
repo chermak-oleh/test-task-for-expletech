@@ -6,21 +6,19 @@ type Props = {
   onCloseModalButton: () => void;
 };
 
-export const CreatePostModal: React.FC<Props> = ({ onCloseModalButton }) => {
-  return (
-    <div className="modal is-active">
-      <div className="modal-background"></div>
-      <div className="modal-card">
-        <header className="modal-card-head">
-          <p className="modal-card-title">Create Post</p>
-          <button className="delete" aria-label="close" type="button" onClick={onCloseModalButton}></button>
-        </header>
-        <section className="modal-card-body">
-          <CreatePostForm />
-        </section>
-        <footer className="modal-card-foot">
-        </footer>
-      </div>
+export const CreatePostModal: React.FC<Props> = React.memo(({ onCloseModalButton }) => (
+  <div className="modal is-active">
+    <div className="modal-background"></div>
+    <div className="modal-card">
+      <header className="modal-card-head">
+        <p className="modal-card-title">Create Post</p>
+        <button className="delete" aria-label="close" type="button" onClick={onCloseModalButton}></button>
+      </header>
+      <section className="modal-card-body">
+        <CreatePostForm />
+      </section>
+      <footer className="modal-card-foot">
+      </footer>
     </div>
-  );
-};
+  </div>
+));

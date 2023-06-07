@@ -1,11 +1,12 @@
-/* eslint-disable import/no-cycle */
-/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { NewPost } from '../types/newPost';
+
+type RequestMethod = 'GET' | 'POST';
 
 export function request<T>(
   url: string,
-  method = 'GET',
-  data: any = null,
+  method: RequestMethod = 'GET',
+  data: NewPost | null = null,
 ): Promise<T> {
   const options: RequestInit = { method };
   const BASE_URL = 'https://jsonplaceholder.typicode.com/';

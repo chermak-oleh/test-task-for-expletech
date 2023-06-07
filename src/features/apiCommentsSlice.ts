@@ -1,9 +1,7 @@
 /* eslint-disable no-param-reassign */
-/* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable import/no-cycle */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getApiComments } from '../api/getApiData';
-import { RootState } from '../app/store';
 import { Comment } from '../types/comment';
 import { Status } from '../types/status';
 
@@ -47,5 +45,3 @@ export const commentsSlice = createSlice({
 });
 
 export default commentsSlice.reducer;
-
-export const selectComments = (state: RootState) => state.apiComments.comments;

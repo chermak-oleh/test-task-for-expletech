@@ -3,6 +3,7 @@ import AwesomeSlider from 'react-awesome-slider';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { loadPostsAsync } from '../../features/apiPostsSlice';
 import { loadCommentsAsync } from '../../features/apiCommentsSlice';
+import { PrepPost } from '../../types/prepPost';
 
 export const Slider: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -14,7 +15,7 @@ export const Slider: React.FC = () => {
     dispatch(loadCommentsAsync());
   }, []);
 
-  const preparePosts = useMemo(() => {
+  const preparePosts: PrepPost[] = useMemo(() => {
     return posts.map(post => {
       const findComments = comments.filter(comment => comment.postId === post.id);
 
@@ -27,12 +28,15 @@ export const Slider: React.FC = () => {
 
   return (
     <AwesomeSlider>
-      {preparePosts.map(post => {
-        const { id, title, body } = post;
-
+      {preparePosts.map(({
+        id,
+        title,
+        body,
+        comments: postComments,
+      }) => {
         return (
           <div className="slider-content" key={id}>
-            <div className="box" style={{ maxWidth: '750px', maxHeight: '600px', overflow: 'auto' }}>
+            <div className="box post-content">
               <p className="title">
                 {title}
               </p>
@@ -40,23 +44,22 @@ export const Slider: React.FC = () => {
                 {body}
               </p>
               <h1 className="title mt-2">Comments:</h1>
-              {post.comments.length > 0
-                ? post.comments.map(comment => {
-                  const {
-                    email, name,
-                  } = comment;
-
-                  return (
-                    <article className="message is-dark" key={comment.id}>
-                      <div className="message-header">
-                        <p>{`${name} / ${email}`}</p>
-                      </div>
-                      <div className="message-body">
-                        {comment.body}
-                      </div>
-                    </article>
-                  );
-                })
+              {postComments.length > 0
+                ? postComments.map(({
+                  id: commentId,
+                  name,
+                  email,
+                  body: commentBody,
+                }) => (
+                  <article className="message is-dark" key={commentId}>
+                    <div className="message-header">
+                      <p>{`${name} / ${email}`}</p>
+                    </div>
+                    <div className="message-body">
+                      {commentBody}
+                    </div>
+                  </article>
+                ))
                 : (
                   <p>There is no comments yet</p>
                 )}

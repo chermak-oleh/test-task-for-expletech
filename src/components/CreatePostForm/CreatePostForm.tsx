@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import { useAppDispatch } from '../../app/hooks';
 import { createPostAsync } from '../../features/apiPostsSlice';
 
+const usersIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
 export const CreatePostForm: React.FC = () => {
   const [userId, setUserId] = useState(1);
   const [title, setTitle] = useState('');
@@ -11,8 +13,6 @@ export const CreatePostForm: React.FC = () => {
   const [error, setError] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
   const dispatch = useAppDispatch();
-
-  const usersIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   const addNewPost = async () => {
     const trimmedTitle = title.trim();
