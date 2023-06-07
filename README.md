@@ -1,11 +1,3 @@
-Test task for Expletech by Oleh Chermak.
-
-To run this project on your localhost:
-- Open terminal and run `npm install`.
-- After all dependencies installed, run `npm start`.
-
-
-
 # Test task for Expletech
 
 This is test task for Expletech, made by Oleh Chermak.
