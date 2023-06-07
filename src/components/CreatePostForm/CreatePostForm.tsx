@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
-import { useAppDispatch } from '../../store/hooks';
-import { createPostAsync } from '../../slices/apiPostsSlice';
+import { useAppDispatch } from '../../app/hooks';
+import { createPostAsync } from '../../features/apiPostsSlice';
 
 export const CreatePostForm: React.FC = () => {
   const [userId, setUserId] = useState(1);

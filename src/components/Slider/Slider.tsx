@@ -1,8 +1,8 @@
 import React, { useEffect, useMemo } from 'react';
 import AwesomeSlider from 'react-awesome-slider';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { loadPostsAsync } from '../../slices/apiPostsSlice';
-import { loadCommentsAsync } from '../../slices/apiCommentsSlice';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { loadPostsAsync } from '../../features/apiPostsSlice';
+import { loadCommentsAsync } from '../../features/apiCommentsSlice';
 
 export const Slider: React.FC = () => {
   const dispatch = useAppDispatch();

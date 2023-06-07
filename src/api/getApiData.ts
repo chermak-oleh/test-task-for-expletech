@@ -1,6 +1,6 @@
-import { Comment } from '../types/Comment';
-import { NewPost } from '../types/NewPost';
-import { Post } from '../types/Post';
+import { Comment } from '../types/comment';
+import { NewPost } from '../types/newPost';
+import { Post } from '../types/post';
 import { client } from '../utils/fetchClient';
 
 export const getApiPosts = (): Promise<Post[]> => {

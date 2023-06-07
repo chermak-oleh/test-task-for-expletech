@@ -3,9 +3,9 @@
 /* eslint-disable import/no-cycle */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getApiComments } from '../api/getApiData';
-import { RootState } from '../store/store';
-import { Comment } from '../types/Comment';
-import { Status } from '../types/Status';
+import { RootState } from '../app/store';
+import { Comment } from '../types/comment';
+import { Status } from '../types/status';
 
 export interface State {
   comments: Comment[],

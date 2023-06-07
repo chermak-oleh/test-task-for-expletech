@@ -3,10 +3,9 @@
 /* eslint-disable import/no-cycle */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { createPost, getApiPosts } from '../api/getApiData';
-import { RootState } from '../store/store';
-import { Post } from '../types/Post';
-import { Status } from '../types/Status';
-import { NewPost } from '../types/NewPost';
+import { Post } from '../types/post';
+import { Status } from '../types/status';
+import { NewPost } from '../types/newPost';
 
 export interface State {
   posts: Post[];
@@ -67,5 +66,3 @@ export const postsSlice = createSlice({
 });
 
 export default postsSlice.reducer;
-
-export const selectPosts = (state: RootState) => state.apiPosts.posts;
