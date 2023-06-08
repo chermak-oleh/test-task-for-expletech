@@ -8,7 +8,7 @@ This is test task for Expletech, made by Oleh Chermak.
 
 In this project you can slide through the carousel of posts, see each of post with comments for those. Also you can add your own post via `Add post` button on the top right corner.
 
- - Used Technolgies: HTML, CSS, Bulma, Typescript, React, Redux.
+ - Used Technolgies: HTML, CSS, Bulma, Typescript, React, Redux, React-Final-Form, Awesome Slider.
 
 ## Local development
 
