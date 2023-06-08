@@ -1,77 +1,69 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
+import { Form, Field } from 'react-final-form';
 import { useAppDispatch } from '../../app/hooks';
 import { createPostAsync } from '../../features/apiPostsSlice';
+
+type Values = {
+  userId: number,
+  title: string,
+  description: string,
+};
+
+type Errors = {
+  title?: string,
+  userId?: string,
+  description?: string,
+};
 
 const usersIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 export const CreatePostForm: React.FC = () => {
-  const [userId, setUserId] = useState(1);
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [error, setError] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
   const dispatch = useAppDispatch();
 
-  const addNewPost = async () => {
-    const trimmedTitle = title.trim();
-    const trimmedDescription = description.trim();
+  const initialValues: Values = {
+    userId: 1,
+    title: '',
+    description: '',
+  };
 
+  const validate = (values: Values) => {
+    const { userId, title, description } = values;
+
+    const errors: Errors = {};
+
+    if (!title || !title.trim()) {
+      errors.title = 'Please enter a title';
+    }
+
+    if (!userId) {
+      errors.userId = 'Please select id of user';
+    }
+
+    if (!description || !description.trim()) {
+      errors.description = 'Please enter a description';
+    }
+
+    return errors;
+  };
+
+  const onFormSubmit = async ({ userId, title, description }: Values) => {
     const newPost = {
-      title: trimmedTitle,
-      body: trimmedDescription,
       userId,
+      title: title.trim(),
+      body: description.trim(),
     };
 
     dispatch(createPostAsync(newPost));
-  };
 
-  const handleUserIdChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const { value } = event.target;
-
-    setUserId(+value);
-  };
-
-  const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target;
-
-    setTitle(value);
-  };
-
-  const handleDescriptionChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const { value } = event.target;
-
-    setDescription(value);
-  };
-
-  const clearForm = () => {
-    setUserId(1);
-    setTitle('');
-    setDescription('');
-    setError(false);
-  };
-
-  const onFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    if (!title || !description) {
-      setError(true);
-
-      return;
-    }
-
-    addNewPost();
-    clearForm();
     setShowNotification(true);
   };
 
   const onCloseNotification = () => {
     setShowNotification(false);
   };
-
-  const titleErrorCondition = !title && error;
-  const descErrorCondition = !description && error;
 
   if (showNotification) {
     return (
@@ -83,55 +75,72 @@ export const CreatePostForm: React.FC = () => {
   }
 
   return (
-    <form onSubmit={onFormSubmit} className="container">
-      <div className="field">
-        <label className="label">User ID</label>
-        <div className="control">
-          <div className="select">
-            <select value={userId} onChange={handleUserIdChange}>
-              {usersIds.map(id => (
-                <option key={id}>{id}</option>
-              ))}
-            </select>
+    <Form
+      onSubmit={onFormSubmit}
+      initialValues={initialValues}
+      validate={validate}
+      render={({ handleSubmit }) => (
+        <form className="container" onSubmit={handleSubmit}>
+          <div className="field">
+            <label className="label">User ID</label>
+            <div className="control">
+              <div className="select">
+                <Field
+                  name="userId"
+                  component="select"
+                >
+                  {usersIds.map(id => (
+                    <option key={id}>{id}</option>
+                  ))}
+                </Field>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
 
-      <div className="field">
-        <label className="label">Title</label>
-        <div className="control">
-          <input
-            className="input"
-            type="text"
-            placeholder="Post title"
-            value={title}
-            onChange={handleTitleChange}
-            required
-          />
-          {titleErrorCondition && (
-            <span className="has-text-danger">Please enter a title</span>
-          )}
-        </div>
-      </div>
+          <div className="field">
+            <label className="label">Title</label>
 
-      <div className="field">
-        <label className="label">Description</label>
-        <div className="control">
-          <textarea
-            className="textarea"
-            placeholder="Post description"
-            value={description}
-            onChange={handleDescriptionChange}
-            required
-          >
-          </textarea>
-          {descErrorCondition && (
-            <span className="has-text-danger">Please enter a description</span>
-          )}
-        </div>
-      </div>
+            <Field
+              name="title"
+              component="input"
+              placeholder="Post title"
+              type="text"
+            >
+              {({ meta, input }) => (
+                <div className="control">
+                  <input
+                    className="input"
+                    {...input}
+                  />
+                  {meta.error && meta.touched && <span className="has-text-danger">Please enter a title</span>}
+                </div>
+              )}
+            </Field>
+          </div>
 
-      <button className="button is-info" type="submit">Add Post</button>
-    </form>
+          <div className="field">
+            <label className="label">Description</label>
+
+            <Field
+              name="description"
+              component="textarea"
+              placeholder="Post description"
+            >
+              {({ meta, input }) => (
+                <div className="control">
+                  <textarea
+                    className="textarea"
+                    {...input}
+                  />
+                  {meta.error && meta.touched && <span className="has-text-danger">Please enter a description</span>}
+                </div>
+              )}
+            </Field>
+          </div>
+
+          <button className="button is-info" type="submit">Add Post</button>
+        </form>
+      )}
+    />
   );
 };
